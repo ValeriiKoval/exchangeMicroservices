@@ -1,0 +1,26 @@
+server:
+  port: 8085
+
+external:
+  exchange:
+    url: https://financialmodelingprep.com/api/v3
+    apiKey: 6KPiJRdQ7wsYclroTHE7I6oVXH1l6CA0
+
+spring:
+  application:
+    name: EXCHANGE-SERVICE
+
+feign:
+  client:
+    config:
+      default:
+        logger-level: basic
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

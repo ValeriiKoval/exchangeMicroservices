@@ -1,0 +1,42 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: MAIL-SERVICE
+  mail:
+    host: ${MAIL_HOST}
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          port: ${MAIL_PORT}
+  rabbitmq:
+    exchanges:
+      mail: mail.exchange
+    queues:
+      send: send.queue
+    routing-keys:
+      send: send.routing.key
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+    addresses: ${RABBIT_URL}
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1s
+          max-attempts: 2
+          max-interval: 10s
+          multiplier: 2
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

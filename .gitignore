@@ -1,0 +1,14 @@
+.idea
+*.iml
+target
+classes
+build
+.gradle
+web-app/WEB-INF/classes
+*.log
+*.lock
+application-local.yml
+application.properties
+db.properties
+log4j2.xml
+volumes

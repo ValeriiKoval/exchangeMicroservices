@@ -1,0 +1,40 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3307/orderdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+  application:
+    name: ORDER-SERVICE
+  rabbitmq:
+    exchanges:
+      mail: mail.exchange
+    routing-keys:
+      send: send.routing.key
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+    addresses: ${RABBIT_URL}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
+        logger-level: full
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

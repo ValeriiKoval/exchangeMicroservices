@@ -1,0 +1,195 @@
+services:
+
+  serviceregistry:
+    build:
+      context: /serviceRegistry
+      dockerfile: Dockerfile
+    image: 'va.koval/serviceregistry:latest'
+    container_name: serviceregistry
+    ports:
+      - '8761:8761'
+    networks:
+      - backend
+
+  apigateway:
+    build:
+      context: /apigateway
+      dockerfile: Dockerfile
+    image: 'va.koval/apigateway:latest'
+    container_name: apigateway
+    ports:
+      - '8081:8081'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_started
+    networks:
+      - backend
+
+  mailservice:
+    build:
+      context: /mailService
+      dockerfile: Dockerfile
+    image: 'va.koval/mailservice:latest'
+    container_name: mailservice
+    ports:
+      - '8082:8082'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - RABBIT_USERNAME=rmuser
+      - RABBIT_PASSWORD=rmpassword
+      - RABBIT_URL=rabbitmq:5672
+      - MAIL_HOST=mailcatcher
+      - MAIL_USER=mailcatcher
+      - MAIL_PASSWORD=mailcatcher
+      - MAIL_PORT=1025
+    depends_on:
+      mailcatcher:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+    networks:
+      - backend
+
+  authservice:
+    build:
+      context: /authService
+      dockerfile: Dockerfile
+    image: 'va.koval/authservice:latest'
+    container_name: authservice
+    ports:
+      - '8083:8083'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - DB_HOST=database
+      - DB_USERNAME=root
+      - DB_PASSWORD=dbpassword
+      - RABBIT_USERNAME=rmuser
+      - RABBIT_PASSWORD=rmpassword
+      - RABBIT_URL=rabbitmq:5672
+      - GATEWAY_URL=http://localhost:8081
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+
+  walletService:
+    build:
+      context: /walletService
+      dockerfile: Dockerfile
+    image: 'va.koval/walletservice:latest'
+    container_name: walletservice
+    ports:
+      - '8084:8084'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - DB_HOST=database
+      - DB_USERNAME=root
+      - DB_PASSWORD=dbpassword
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+
+  exchangeService:
+    build:
+      context: /exchangeService
+      dockerfile: Dockerfile
+    image: 'va.koval/exchangeservice:latest'
+    container_name: exchangeservice
+    ports:
+      - '8085:8085'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+
+  orderservice:
+    build:
+      context: /orderService
+      dockerfile: Dockerfile
+    image: 'va.koval/orderservice:latest'
+    container_name: orderservice
+    ports:
+      - '8086:8086'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - DB_HOST=database
+      - DB_USERNAME=root
+      - DB_PASSWORD=dbpassword
+      - RABBIT_USERNAME=rmuser
+      - RABBIT_PASSWORD=rmpassword
+      - RABBIT_URL=rabbitmq:5672
+      - GATEWAY_URL=http://localhost:8081
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:management
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=rmuser
+      - RABBITMQ_DEFAULT_PASS=rmpassword
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ./volumes/rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+    networks:
+      - backend
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+    networks:
+      - backend
+
+  database:
+    container_name: mysql-database
+    image: 'mysql:latest'
+    ports:
+      - "3307:3307"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dbpassword
+      MYSQL_TCP_PORT: 3307
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db-data:

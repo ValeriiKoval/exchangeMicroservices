@@ -1,0 +1,59 @@
+server:
+  port: 8083
+
+app:
+  gatewayUrl: ${GATEWAY_URL:http://localhost:8081}
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3307/authdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:dbpassword}
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+  application:
+    name: AUTH-SERVICE
+  rabbitmq:
+    exchanges:
+      mail: mail.exchange
+    routing-keys:
+      send: send.routing.key
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+    addresses: ${RABBIT_URL}
+
+feign:
+  client:
+    config:
+      default:
+        logger-level: basic
+
+jwt:
+  secret: mySecretKey
+  expireMs: 300000
+  refreshExpireMs: 43200000
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      external:
+        event-consumer-buffer-size: 10 # buffer size 10
+        failure-rate-threshold: 50 #
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true # half open enabled
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10 # record the outcome of calls when the CircuitBreaker is closed
+        sliding-window-type: COUNT_BASED # the type of the sliding window
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

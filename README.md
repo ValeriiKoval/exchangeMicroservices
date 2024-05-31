@@ -85,14 +85,14 @@ To set up and run the project locally, follow these steps:
 
 ### Testing the API
 
-A Postman collection is included in the `postman_collection` folder of the repository. You can import this collection into Postman to test the various endpoints and functionalities of the exchange platform.
+A Postman collection is included in the `postmanCollection` folder of the repository. You can import this collection into Postman to test the various endpoints and functionalities of the exchange platform.
 
 To use the Postman collection:
 
 1. Open Postman.
 2. Click on the "Import" button.
 3. Select the "Upload Files" option.
-4. Navigate to the `postman_collection` folder and select the Postman collection file.
+4. Navigate to the `postmanCollection` folder and select the Postman collection file.
 5. Click "Import".
 
 The Postman collection will now be available in your workspace, allowing you to explore and test the API endpoints.

@@ -8,7 +8,6 @@ The project architecture is depicted in the following diagram:
 
 ![image](https://github.com/ValeriiKoval/exchangeMicroservices/assets/103948322/101659ef-8df6-468b-9738-0dbb2c72b00c)
 
-
 The key components of the architecture are:
 
 1. **Clients**: Represents the client applications or interfaces that interact with the exchange platform.
@@ -50,6 +49,23 @@ The project incorporates the following microservices patterns:
 3. **Event Source**: Apache Kafka is used as an event source, enabling asynchronous communication and decoupling between microservices through event-driven architectures.
 
 Here's an updated version of the "Getting Started" section:
+
+## Database Architecture
+
+### Auth Service DB Schema
+
+![Auth Service DB Schema](https://github.com/ValeriiKoval/exchangeMicroservices/assets/103948322/4528ffe1-c88a-4f82-b978-84e6a6e6e7ab)
+)
+
+### Order Service DB Schema
+
+![Order Service DB Schema](https://github.com/ValeriiKoval/exchangeMicroservices/assets/103948322/e6875e8a-4b51-4f06-b67b-6378e1a73f28)
+
+
+### Wallet Service DB Schema
+
+![Wallet Service DB Schema](https://github.com/ValeriiKoval/exchangeMicroservices/assets/103948322/2491b179-a8b9-45c3-8766-2d23f6456122)
+
 
 ## Getting Started
 

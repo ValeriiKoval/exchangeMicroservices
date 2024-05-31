@@ -97,3 +97,6 @@ databaseChangeLog:
               - column:
                   name: user_id
                   type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_refresh_token_user_id
+                    references: user(id)

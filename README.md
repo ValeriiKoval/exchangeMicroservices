@@ -47,8 +47,10 @@ The project incorporates the following microservices patterns:
 1. **Service Discovery**: Microservices are registered with the Service Discovery component, allowing other services to locate and communicate with them dynamically.
 2. **API Gateway**: The API Gateway acts as a single entry point for client requests, routing them to the appropriate microservices and providing load balancing capabilities.
 3. **Event Source**: Apache Kafka is used as an event source, enabling asynchronous communication and decoupling between microservices through event-driven architectures.
-
-Here's an updated version of the "Getting Started" section:
+4. **Database per Service**: Each microservice in the system has its own dedicated database schema, following the Database per Service pattern.
+5. **Rate Limiting**: The system incorporates rate limiting mechanisms, typically implemented using Redis, to control the flow of incoming requests and protect against abuse or overload of the system's resources.
+6. **Distributed Tracing**: Distributed tracing is employed to monitor and troubleshoot issues across the distributed microservices architecture.
+7. **Adapter**: The Adapter pattern is used to integrate with external systems and services, acting as intermediaries between the internal microservices and external APIs or data sources.
 
 ## Database Architecture
 

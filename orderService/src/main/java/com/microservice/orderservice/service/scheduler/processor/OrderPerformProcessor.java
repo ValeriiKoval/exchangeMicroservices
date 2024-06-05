@@ -9,13 +9,13 @@ import com.microservice.orderservice.payload.response.CompanyInfoResponse;
 import com.microservice.orderservice.payload.response.WalletResponse;
 import com.microservice.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderPerformProcessor {

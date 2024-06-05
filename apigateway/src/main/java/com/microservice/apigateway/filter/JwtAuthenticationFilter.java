@@ -8,7 +8,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 
 @Component
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class JwtAuthenticationFilter implements GatewayFilter {
 
     private final JwtUtils jwtUtils;

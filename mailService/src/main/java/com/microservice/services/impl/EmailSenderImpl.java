@@ -5,7 +5,7 @@ import com.microservice.services.EmailSender;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,7 +19,7 @@ import java.util.Set;
  * Email sender service. Contains methods responsible for sending messages via e-mail.
  */
 @Service
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class EmailSenderImpl implements EmailSender {
 

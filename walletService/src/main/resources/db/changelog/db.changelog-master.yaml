@@ -2,9 +2,13 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: va.koval
+      preConditions:
+        not:
+          tableExists:
+            tableName: wallets
       changes:
         - createTable:
-            tableName: wallet
+            tableName: wallets
             columns:
               - column:
                   name: id

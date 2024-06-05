@@ -3,13 +3,13 @@ package com.microservice.orderservice.service.scheduler;
 import com.microservice.orderservice.service.OrderService;
 import com.microservice.orderservice.service.scheduler.processor.OrderPerformProcessor;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderScheduler {

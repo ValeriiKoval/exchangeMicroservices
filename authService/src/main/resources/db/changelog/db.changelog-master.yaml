@@ -2,9 +2,13 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: va.koval
+      preConditions:
+        not:
+          tableExists:
+            tableName: users
       changes:
         - createTable:
-            tableName: user
+            tableName: users
             columns:
               - column:
                   name: id
@@ -44,8 +48,16 @@ databaseChangeLog:
                   type: bit(1)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2
+      author: va.koval
+      preConditions:
+        not:
+          tableExists:
+            tableName: roles
+      changes:
         - createTable:
-            tableName: role
+            tableName: roles
             columns:
               - column:
                   name: id
@@ -58,6 +70,14 @@ databaseChangeLog:
               - column:
                   name: name
                   type: varchar(255)
+  - changeSet:
+      id: 3
+      author: va.koval
+      preConditions:
+        not:
+          tableExists:
+            tableName: user_role
+      changes:
         - createTable:
             tableName: user_role
             columns:
@@ -73,8 +93,16 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_user_role_role_id
                     references: role(id)
+  - changeSet:
+      id: 4
+      author: va.koval
+      preConditions:
+        not:
+          tableExists:
+            tableName: refresh_tokens
+      changes:
         - createTable:
-            tableName: refresh_token
+            tableName: refresh_tokens
             columns:
               - column:
                   name: id

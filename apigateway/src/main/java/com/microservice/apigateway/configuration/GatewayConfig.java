@@ -16,7 +16,11 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("AUTH-SERVICE", r -> r.path("/signup", "/token/**", "/verify/**", "/login", "/user/**")
+                .route("AUTH-SERVICE", r -> r.path("/signup",
+                                "/token/**",
+                                "/verify/**",
+                                "/login",
+                                "/users/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://AUTH-SERVICE"))
                 .route("WALLET-SERVICE", r -> r.path("/wallet/**")
@@ -25,7 +29,7 @@ public class GatewayConfig {
                 .route("EXCHANGE-SERVICE", r -> r.path("/exchange/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://EXCHANGE-SERVICE"))
-                .route("ORDER-SERVICE", r -> r.path("/order/**")
+                .route("ORDER-SERVICE", r -> r.path("/orders/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://ORDER-SERVICE"))
                 .build();

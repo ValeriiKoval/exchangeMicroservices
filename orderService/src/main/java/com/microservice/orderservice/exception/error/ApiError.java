@@ -2,6 +2,7 @@ package com.microservice.orderservice.exception.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ApiError implements Serializable {
 
     private int statusCode;

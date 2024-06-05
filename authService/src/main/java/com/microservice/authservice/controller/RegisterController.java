@@ -4,7 +4,6 @@ import com.microservice.authservice.facade.RegisterFacade;
 import com.microservice.authservice.payload.request.SignUpRequest;
 import com.microservice.authservice.payload.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,7 @@ public class RegisterController {
     private final RegisterFacade registerFacade;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> registerUser(@RequestBody final SignUpRequest signUpRequest) {
-        return ResponseEntity.ok(registerFacade.registerUser(signUpRequest));
+    public MessageResponse registerUser(@RequestBody final SignUpRequest signUpRequest) {
+        return registerFacade.registerUser(signUpRequest);
     }
 }

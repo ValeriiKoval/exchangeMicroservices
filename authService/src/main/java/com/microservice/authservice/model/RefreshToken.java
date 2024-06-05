@@ -13,7 +13,7 @@ import java.time.Instant;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "refresh_token")
+@Table(name = "refresh_tokens")
 @Data
 public class RefreshToken extends IdBasedEntity implements Serializable {
 

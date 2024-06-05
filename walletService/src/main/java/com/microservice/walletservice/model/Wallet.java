@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "wallet")
+@Table(name = "wallets")
 @Data
 @NoArgsConstructor
 public class Wallet extends IdBasedEntity implements Serializable {

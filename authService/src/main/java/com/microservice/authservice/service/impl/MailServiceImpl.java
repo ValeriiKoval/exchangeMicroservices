@@ -6,7 +6,7 @@ import com.microservice.authservice.service.MailService;
 import com.microservice.authservice.service.TemplateService;
 import com.microservice.authservice.service.dto.MailDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Base implementation of {@link MailService}.
  */
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {

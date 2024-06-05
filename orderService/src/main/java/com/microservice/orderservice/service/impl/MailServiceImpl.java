@@ -6,12 +6,12 @@ import com.microservice.orderservice.service.MailService;
 import com.microservice.orderservice.service.TemplateService;
 import com.microservice.orderservice.service.dto.MailDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Log4j2
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {

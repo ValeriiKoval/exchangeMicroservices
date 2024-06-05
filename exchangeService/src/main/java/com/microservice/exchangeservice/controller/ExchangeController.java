@@ -4,7 +4,6 @@ import com.microservice.exchangeservice.facade.ExchangeFacade;
 import com.microservice.exchangeservice.payload.response.CompanyInfoResponse;
 import com.microservice.exchangeservice.payload.response.StockInfoResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +20,12 @@ public class ExchangeController {
     private final ExchangeFacade exchangeFacade;
 
     @GetMapping("/stock/list")
-    public ResponseEntity<List<StockInfoResponse>> getStockList(@RequestParam(required = false) final String search) {
-        return ResponseEntity.ok(exchangeFacade.getStockList(search));
+    public List<StockInfoResponse> getStockList(@RequestParam(required = false) final String search) {
+        return exchangeFacade.getStockList(search);
     }
 
     @GetMapping("/company/{symbol}")
-    public ResponseEntity<CompanyInfoResponse> getCompanyInfo(@PathVariable final String symbol) {
-        return ResponseEntity.ok(exchangeFacade.getCompanyInfo(symbol));
+    public CompanyInfoResponse getCompanyInfo(@PathVariable final String symbol) {
+        return exchangeFacade.getCompanyInfo(symbol);
     }
 }

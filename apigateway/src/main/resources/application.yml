@@ -4,8 +4,8 @@ server:
 
 spring:
   redis:
-    host: redis
-    port: 6379
+    host: ${REDIS_URL}
+    port: ${REDIS_PORT}
   application:
     name: API-GATEWAY
   cloud:
@@ -58,6 +58,7 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/orders/**
+            - Path=/shares/**
           filters:
             - name: CircuitBreaker
               args:

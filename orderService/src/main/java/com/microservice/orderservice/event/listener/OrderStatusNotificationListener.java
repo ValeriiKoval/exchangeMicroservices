@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,7 @@ public class OrderStatusNotificationListener {
     private final MailService mailService;
     private final UserService userService;
 
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @EventListener(OrderStatusNotificationEvent.class)
     @SneakyThrows
     public void onStatusChanged(OrderStatusNotificationEvent event) {

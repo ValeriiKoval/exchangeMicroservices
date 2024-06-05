@@ -86,13 +86,13 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_user_role_user_id
-                    references: user(id)
+                    references: users(id)
               - column:
                   name: role_id
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_user_role_role_id
-                    references: role(id)
+                    references: roles(id)
   - changeSet:
       id: 4
       author: va.koval
@@ -127,4 +127,4 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     foreignKeyName: fk_refresh_token_user_id
-                    references: user(id)
+                    references: users(id)

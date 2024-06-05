@@ -29,7 +29,7 @@ public class GatewayConfig {
                 .route("EXCHANGE-SERVICE", r -> r.path("/exchange/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://EXCHANGE-SERVICE"))
-                .route("ORDER-SERVICE", r -> r.path("/orders/**")
+                .route("ORDER-SERVICE", r -> r.path("/orders/**", "/shares/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://ORDER-SERVICE"))
                 .build();
